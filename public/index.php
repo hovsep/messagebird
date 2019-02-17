@@ -7,3 +7,7 @@
  */
 
 require __DIR__.'/../vendor/autoload.php';
+
+$request = new \App\Kernel\Request();
+
+print_r($request->getBody());

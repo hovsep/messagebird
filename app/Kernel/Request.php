@@ -16,6 +16,8 @@ namespace App\Kernel;
  */
 class Request {
 
+    private $body = null;
+
     function __construct()
     {
         $this->boot();
@@ -27,13 +29,26 @@ class Request {
     private function boot()
     {
         foreach ($_SERVER as $key => $value) {
-            $this->{$key} = $value;
+            $this->{str_camel_case($key)} = $value;
         }
     }
 
+    /**
+     * Returns decoded json
+     *
+     * @return mixed|null
+     */
     public function getBody()
     {
-        //@TODO
+        if (is_null($this->body)) {
+            if ('POST' == $this->requestMethod) {
+                //Our API will always get raw json, so we do not need to read $_POST
+                $this->body = json_decode(file_get_contents("php://input"), true);
+            }
+        }
+
+        return $this->body;
+
     }
 
 }
