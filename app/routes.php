@@ -1,5 +1,5 @@
 <?php
 
-$router->get('/', function() {
-    echo json_response(['message' => 'Welcome to SMS sending REST API !']);
+$router->get('/api/v1', function(\App\Kernel\Request $request) {
+    json_response(['message' => 'Welcome to SMS sending REST API !']);
 });

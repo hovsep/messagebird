@@ -15,7 +15,7 @@ class Router
     /**
      * @var array
      */
-    private static $supportedMethods = ['get', 'post'];
+    private static $supportedMethods = ['get', 'post', 'put', 'patch', 'delete'];
 
     function __construct(Request $request)
     {
@@ -76,16 +76,16 @@ class Router
                 throw new \UnexpectedValueException('No routes for this method');
             }
 
-            $formattedRoute = self::formatRoute($this->request->requestUri);
+            $formattedRoute = self::formatRoute($this->request->getPath());
 
             if (!isset($this->{$httpMethod}[$formattedRoute])) {
-                throw new \UnexpectedValueException('This route is not registered');
+                throw new \UnexpectedValueException('This route is not registered ' . $formattedRoute);
             }
 
 
             return call_user_func_array($this->{$httpMethod}[$formattedRoute], [$this->request]);
         } catch (\Exception $e) {
-            throw new HttpException('Failed to resolve route. Reason:' . $e->getMessage(), 404);
+            throw new HttpException('Failed to resolve route. Reason: ' . $e->getMessage(), 404);
         }
     }
 }

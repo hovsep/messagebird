@@ -18,6 +18,10 @@ class Request {
 
     private $body = null;
 
+    private $params = [];
+
+    private $path = '';
+
     function __construct()
     {
         $this->boot();
@@ -31,6 +35,16 @@ class Request {
         foreach ($_SERVER as $key => $value) {
             $this->{str_camel_case($key)} = $value;
         }
+
+        //Read request body
+        $this->body = json_decode(file_get_contents('php://input'), true);
+
+        //and params
+        foreach ($_GET as $key => $value) {
+            $this->params[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+
+        $this->path = reset(explode('?', $this->requestUri, 2));
     }
 
     /**
@@ -50,14 +64,21 @@ class Request {
      */
     public function getBody()
     {
-        if (is_null($this->body)) {
-            if ('POST' == $this->getMethod()) {
-                //Our API will always get raw json, so we do not need to read $_POST
-                $this->body = json_decode(file_get_contents("php://input"), true);
-            }
-        }
-
         return $this->body;
+    }
+
+    /**
+     * @return null
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
+
+
+    public function getPath()
+    {
+        return $this->path;
     }
 
 }
