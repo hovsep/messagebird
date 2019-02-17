@@ -7,13 +7,20 @@
  */
 namespace App\Controller;
 
+use App\Controller\Traits\ValidatesRequest;
 use App\Kernel\Request;
 
 class SmsGateController
 {
 
+    use ValidatesRequest;
+
     public function sendSms(Request $request)
     {
-        json_response(['stub' => 'from controller']);
+        $this->validate($request, [
+            'recipient'     => ['required'],
+            'originator'    => ['required'],
+            'message'       => ['required', 'max_length:160']
+        ]);
     }
 }

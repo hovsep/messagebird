@@ -83,7 +83,7 @@ class Router
             }
 
             return call_user_func_array($this->{$httpMethod}[$formattedRoute], [$this->request]);
-        } catch (\Exception $e) {
+        } catch (\UnexpectedValueException $e) {
             throw new HttpException('Failed to resolve route. Reason: ' . $e->getMessage(), 404);
         }
     }

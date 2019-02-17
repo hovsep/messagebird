@@ -16,7 +16,7 @@ namespace App\Kernel;
  */
 class Request {
 
-    private $body = null;
+    private $body = [];
 
     private $params = [];
 
@@ -44,7 +44,7 @@ class Request {
             $this->params[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
         }
 
-        $this->path = reset(explode('?', $this->requestUri, 2));
+        $this->path = explode('?', $this->requestUri, 2)[0];
     }
 
     /**
