@@ -34,6 +34,16 @@ class Request {
     }
 
     /**
+     * Returns http method
+     *
+     * @return mixed
+     */
+    public function getMethod()
+    {
+        return $this->requestMethod;
+    }
+
+    /**
      * Returns decoded json
      *
      * @return mixed|null
@@ -41,14 +51,13 @@ class Request {
     public function getBody()
     {
         if (is_null($this->body)) {
-            if ('POST' == $this->requestMethod) {
+            if ('POST' == $this->getMethod()) {
                 //Our API will always get raw json, so we do not need to read $_POST
                 $this->body = json_decode(file_get_contents("php://input"), true);
             }
         }
 
         return $this->body;
-
     }
 
 }
