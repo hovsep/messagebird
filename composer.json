@@ -1,0 +1,25 @@
+{
+    "name": "hovsep/messagebird",
+    "description": "Test task for MessageBird",
+    "type": "project",
+
+    "authors": [
+        {
+            "name": "Hovsep",
+            "email": "avakyan.hovsep@yandex.ru"
+        }
+    ],
+    "require": {
+        "messagebird/php-rest-api": "^1.10"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": ["app/helpers.php"]
+    }
+}
