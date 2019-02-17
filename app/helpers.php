@@ -27,3 +27,11 @@ if (!function_exists('json_error_response')) {
         echo json_encode(['error' => $error]);
     }
 }
+
+if (!function_exists('call_controller')) {
+
+    function call_controller($name, $method, array $params)
+    {
+        return call_user_func_array([(new $name), $method], $params);
+    }
+}

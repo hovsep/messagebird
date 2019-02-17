@@ -73,15 +73,14 @@ class Router
             $httpMethod = strtolower($this->request->getMethod());
 
             if (!isset($this->{$httpMethod})) {
-                throw new \UnexpectedValueException('No routes for this method');
+                throw new \UnexpectedValueException('No routes for this HTTP method');
             }
 
             $formattedRoute = self::formatRoute($this->request->getPath());
 
             if (!isset($this->{$httpMethod}[$formattedRoute])) {
-                throw new \UnexpectedValueException('This route is not registered ' . $formattedRoute);
+                throw new \UnexpectedValueException('This route is not registered');
             }
-
 
             return call_user_func_array($this->{$httpMethod}[$formattedRoute], [$this->request]);
         } catch (\Exception $e) {
