@@ -7,13 +7,16 @@
  * Time: 19:19
  */
 
-error_reporting(E_ALL);
-
 require __DIR__ . '/../../vendor/autoload.php';
 
-global $config;//Yes, I know this is bad. In real world we should use something better, e.g. Registry patters or IoC
+error_reporting(E_ALL);
+session_start();
+
+global $config;//Yes, I know this is bad. In real world we should use Registry patter or IoC
 $config = require_once __DIR__ . '/../config.php';
 
+//Global error handlers
+//All unhandled exceptions go here
 set_exception_handler(function(Throwable $e) {
     if ($e instanceof \App\Kernel\Exception\HttpException) {
         json_error_response($e->getMessage(), $e->getCode());
@@ -22,9 +25,12 @@ set_exception_handler(function(Throwable $e) {
     }
 });
 
+//Capture request
 $request = new \App\Kernel\Request();
-$router = new \App\Kernel\Router($request);
 
+//Setup router
+$router = new \App\Kernel\Router($request);
 require_once __DIR__ . '/../routes.php';
 
+//Run app
 $router->resolve();
