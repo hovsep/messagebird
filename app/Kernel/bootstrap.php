@@ -7,9 +7,12 @@
  * Time: 19:19
  */
 
+error_reporting(E_ALL);
+
 require __DIR__ . '/../../vendor/autoload.php';
 
-error_reporting(E_ALL);
+global $config;//Yes, I know this is bad. In real world we should use something better, e.g. Registry patters or IoC
+$config = require_once __DIR__ . '/../config.php';
 
 set_exception_handler(function(Throwable $e) {
     if ($e instanceof \App\Kernel\Exception\HttpException) {
