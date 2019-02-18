@@ -8,6 +8,12 @@
 
 namespace App\Utils\Validation\Rule;
 
+/**
+ * Rules factory
+ *
+ * Class Factory
+ * @package App\Utils\Validation\Rule
+ */
 class Factory {
 
     /**
@@ -29,6 +35,7 @@ class Factory {
             $className = __NAMESPACE__  . '\\'. ucfirst(str_camel_case($ruleName));
             return new $className(explode(',', $ruleParams));
         } catch (\Throwable $e) {
+            //Class not found
             return null;
         }
 

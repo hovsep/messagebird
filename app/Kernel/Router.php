@@ -4,8 +4,13 @@ namespace App\Kernel;
 
 use App\Kernel\Exception\HttpException;
 
-class Router
-{
+/**
+ * Very simple router
+ *
+ * Class Router
+ * @package App\Kernel
+ */
+class Router {
 
     /**
      * @var Request
@@ -22,6 +27,10 @@ class Router
         $this->request = $request;
     }
 
+    /**
+     * @param $name
+     * @param $arguments
+     */
     function __call($name, $arguments)
     {
         try {

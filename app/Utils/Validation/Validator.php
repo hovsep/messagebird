@@ -11,13 +11,34 @@ namespace App\Utils\Validation;
 use App\Utils\Validation\Rule\Factory;
 use App\Utils\Validation\Rule\IRule;
 
-class Validator
-{
+/**
+ * Simple validator
+ *
+ * Class Validator
+ * @package App\Utils\Validation
+ */
+class Validator {
+
+    /**
+     * Array of string rules
+     *
+     * @var array
+     */
     private $rules = [];
 
+    /**
+     * Data under validation
+     *
+     * @var array
+     */
     private $data = [];
 
-    private $errorMessage = null;
+    /**
+     * First error message
+     *
+     * @var string
+     */
+    private $errorMessage = '';
 
     function __construct(array $rules, array $data)
     {
@@ -25,6 +46,11 @@ class Validator
         $this->data = $data;
     }
 
+    /**
+     * Returns true when some attributes have errors
+     *
+     * @return bool
+     */
     public function fails()
     {
         foreach ($this->rules as $attribute => $attributeRules) {
@@ -58,19 +84,24 @@ class Validator
             if (!$ruleInstance->isValid($value)) {
                 throw new \RuntimeException($attribute . ' ' . $ruleInstance->getErrorMessage());
             }
-        } else {
-           // throw new \InvalidArgumentException('Rule ' . $rule . ' is incorrect');
         }
-
     }
 
+    /**
+     * Extracts attribute value by name
+     *
+     * @param $attribute
+     * @return mixed|null
+     */
     private function getAttributeValue($attribute)
     {
         return array_key_exists($attribute, $this->data) ? $this->data[$attribute] : null;
     }
 
     /**
-     * @return null
+     * Returns validator first error message
+     *
+     * @return string
      */
     public function getErrorMessage()
     {

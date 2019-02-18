@@ -6,6 +6,11 @@
  * Time: 3:36
  */
 
+/**
+ * Simple configuration file
+ *
+ * In real world actual values should be separated (for example in .env file)
+ */
 
 return [
     'services' =>

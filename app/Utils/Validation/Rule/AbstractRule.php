@@ -8,7 +8,12 @@
 
 namespace App\Utils\Validation\Rule;
 
-
+/**
+ * Base rule class
+ *
+ * Class AbstractRule
+ * @package App\Utils\Validation\Rule
+ */
 abstract class AbstractRule implements IRule {
 
     protected $params = [];

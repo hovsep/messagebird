@@ -12,16 +12,28 @@ use App\Controller\Traits\ValidatesRequest;
 use App\Kernel\Request;
 use App\Utils\SmsGate;
 
+/**
+ * Class SmsGateController
+ * @package App\Controller
+ */
 class SmsGateController
 {
 
     use ValidatesRequest, ThrottlesRequests;
 
+    /**
+     * Main API method
+     * Tries to send sms via MessageBird API
+     *
+     * @param Request $request
+     * @throws \App\Kernel\Exception\HttpException
+     */
     public function sendSms(Request $request)
     {
-        //Limit rate request as 1 RPS (request per second)
+        //Limit request rate as 1 RPS (request per second)
         $this->throttle(md5(__FUNCTION__));
 
+        //Check input
         $this->validate($request, [
             'recipient'     => ['required'],
             'originator'    => ['required'],

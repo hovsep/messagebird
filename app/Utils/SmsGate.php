@@ -53,6 +53,8 @@ class SmsGate
 
 
     /**
+     * Sends SMS to single recipient
+     *
      * @param $originator
      * @param $recipient
      * @param $body

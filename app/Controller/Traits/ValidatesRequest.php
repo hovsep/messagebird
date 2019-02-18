@@ -15,6 +15,13 @@ use App\Utils\Validation\Validator;
 trait ValidatesRequest {
 
 
+    /**
+     * Validate the request
+     *
+     * @param Request $request
+     * @param array $rules
+     * @throws HttpException
+     */
     public function validate(Request $request, array $rules)
     {
         $validator = new Validator($rules, $request->getBody());

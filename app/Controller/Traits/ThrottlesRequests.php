@@ -10,6 +10,12 @@ namespace App\Controller\Traits;
 
 use App\Kernel\Exception\HttpException;
 
+/**
+ * This trait allows to rate-limit given controller-action
+ *
+ * Trait ThrottlesRequests
+ * @package App\Controller\Traits
+ */
 trait ThrottlesRequests {
 
     /**
